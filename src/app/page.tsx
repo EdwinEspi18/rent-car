@@ -1,5 +1,8 @@
+import {Car} from "lucide-react";
+
 import {BrandLogoSection} from "@/components/brand-logos-section";
 import {Button} from "@/components/ui/button";
+import {HowItWorkSection} from "@/components/how-it-work-section";
 
 export default function HomePage() {
   return (
@@ -18,8 +21,8 @@ export default function HomePage() {
           </p>
         </div>
         <div className="flex items-end">
-          <Button className="font-sans text-lg font-medium text-slate-100 shadow-md shadow-gray-300/30">
-            Reserva ahora!
+          <Button className="inline-flex gap-x-2 font-sans text-lg font-medium text-slate-100 shadow-md shadow-gray-300/30">
+            <Car /> Reserva ahora!
           </Button>
         </div>
         <div className="flex flex-1 items-center justify-center p-5">
@@ -31,6 +34,7 @@ export default function HomePage() {
         </div>
       </section>
       <BrandLogoSection />
+      <HowItWorkSection />
     </>
   );
 }
