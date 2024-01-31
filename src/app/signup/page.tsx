@@ -10,12 +10,11 @@ import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/compo
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
-import {signUpAction} from "@/actions/signup.action";
 
 const formSchema = z.object({
   nombre: z
     .string({
-      invalid_type_error: "Nmbre completo no debe contener digitos",
+      invalid_type_error: "Nombre completo no debe contener dígitos",
     })
     .min(2)
     .max(50)
@@ -25,16 +24,16 @@ const formSchema = z.object({
       required_error: "Licencia de conducir es requerida",
       invalid_type_error: "no debe contener espacios",
     })
-    .min(11, "debe contener 11 digitos")
-    .max(11, "debe contener 11 digitos")
+    .min(11, "debe contener 11 dígitos")
+    .max(11, "debe contener 11 dígitos")
     .trim(),
   telefono: z
     .string({
-      required_error: "Numero de Telefono es requerido",
-      invalid_type_error: "Numero de Telefono debe ser digitos",
+      required_error: "Numero de Teléfono es requerido",
+      invalid_type_error: "Numero de Teléfono debe ser dígitos",
     })
-    .min(10, "Numero de Telefono debe contener 10 digitos")
-    .max(10, "Numero de Telefono debe contener 10 digitos"),
+    .min(10, "Numero de Teléfono debe contener 10 dígitos")
+    .max(10, "Numero de Teléfono debe contener 10 dígitos"),
   password: z
     .string({
       required_error: "Contraseña es requerida",
@@ -67,7 +66,7 @@ export default function SignUpPage() {
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form className="space-y-5" onSubmit={form.handleSubmit(signUpAction)}>
+          <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
               name="licencia"
@@ -81,7 +80,7 @@ export default function SignUpPage() {
                       <Input
                         className="pl-11"
                         id="licencia"
-                        placeholder="Ingrese su numero de licencia aqui!"
+                        placeholder="Ingrese su numero de licencia aquí!"
                         {...field}
                       />
                     </div>
@@ -116,7 +115,7 @@ export default function SignUpPage() {
               name="telefono"
               render={({field}) => (
                 <FormItem>
-                  <FormLabel htmlFor="telefono">Numero de telefono</FormLabel>
+                  <FormLabel htmlFor="telefono">Numero de teléfono</FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Phone className="absolute left-2.5 top-1 h-8" strokeWidth={2} />

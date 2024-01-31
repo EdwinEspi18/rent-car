@@ -28,7 +28,7 @@ export function HeaderMain() {
           <Separator className="h-5 bg-gray-400/80" orientation="vertical" />
           <li>
             <Button asChild className={cn("text-base font-medium text-gray-200/90")} variant="link">
-              <Link href="/categorias">Flota de Vehículos</Link>
+              <Link href="/flotilla">Flota de Vehículos</Link>
             </Button>
           </li>
           <Separator className="h-5 bg-gray-400/80" orientation="vertical" />

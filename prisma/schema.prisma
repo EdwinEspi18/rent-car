@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Users {
+    id_user String @id @default(uuid())
+    nombre_completo String
+    num_cedula String
+    telefono String
+    role ROLE? @default(USER)
+
+    bookings Bookings[]
+
+    @@unique(name: "telefonoNumCedula", fields: [num_cedula, telefono])
+    @@map("users")
+}
+
+model Bookings {
+  id_booking String @id @default(uuid())
+  status STATUS_BOOKING? @default(PENDING)
+  fecha DateTime
+  vehiculosRelation Vehiculo @relation(fields: [vehiculoId], references: [id_car])
+  UserRelation Users @relation(fields: [userId], references: [id_user])
+  vehiculoId String
+  userId String
+}
+
+model Vehiculo {
+  id_car String @id @default(uuid())
+  marcasRelation Marca_Vehiculo @relation(fields: [marcaId], references: [id_marca])
+  marcaId String
+
+  bookings Bookings[]
+}
+
+model Marca_Vehiculo {
+  id_marca String @id @default(uuid())
+  marca String
+  vehiculos Vehiculo[]
+}
+
+enum STATUS_BOOKING {
+  PENDING
+  SUCCESS
+}
+
+enum ROLE {
+  ADMIN
+  USER
+}
+

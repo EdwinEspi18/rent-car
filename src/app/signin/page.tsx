@@ -3,7 +3,7 @@
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useForm} from "react-hook-form";
 import * as z from "zod";
-import {CreditCard, KeyRound, Phone, SquareUser} from "lucide-react";
+import {CreditCard, KeyRound} from "lucide-react";
 
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
@@ -16,8 +16,8 @@ const formSchema = z.object({
       required_error: "Licencia de conducir es requerida",
       invalid_type_error: "no debe contener espacios",
     })
-    .min(11, "debe contener 11 digitos")
-    .max(11, "debe contener 11 digitos")
+    .min(11, "debe contener 11 dígitos")
+    .max(11, "debe contener 11 dígitos")
     .trim(),
   password: z
     .string({
@@ -29,6 +29,7 @@ const formSchema = z.object({
 export default function SignInPage() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    reValidateMode: "onChange",
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -40,7 +41,7 @@ export default function SignInPage() {
   return (
     <Card className="mx-auto mt-10 w-full max-w-xl">
       <CardHeader className="text-center">
-        <CardTitle>Iniciar Sesion!</CardTitle>
+        <CardTitle>Iniciar Sesión!</CardTitle>
         <CardDescription>Ingresar sus datos</CardDescription>
       </CardHeader>
       <CardContent>
@@ -59,7 +60,7 @@ export default function SignInPage() {
                       <Input
                         className="pl-11"
                         id="licencia"
-                        placeholder="Ingrese su numero de licencia aqui!"
+                        placeholder="Ingrese su numero de licencia aquí!"
                         {...field}
                       />
                     </div>
