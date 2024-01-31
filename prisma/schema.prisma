@@ -19,6 +19,8 @@ model Users {
     role ROLE? @default(USER)
 
     bookings Bookings[]
+    factura Factura?
+    pay Pay?
 
     @@unique(name: "telefonoNumCedula", fields: [num_cedula, telefono])
     @@map("users")
@@ -38,8 +40,9 @@ model Vehiculo {
   id_car String @id @default(uuid())
   marcasRelation Marca_Vehiculo @relation(fields: [marcaId], references: [id_marca])
   marcaId String
-
+  AGE Int
   bookings Bookings[]
+  factura Factura?
 }
 
 model Marca_Vehiculo {
@@ -48,13 +51,48 @@ model Marca_Vehiculo {
   vehiculos Vehiculo[]
 }
 
+model Factura {
+id_factura String @id @default(uuid())
+usuarioRelation Users @relation(fields: [userId], references: [id_user])
+vehiculoRelation Vehiculo @relation(fields: [vehiculoId], references: [id_car])
+userId String @unique
+fecha DateTime
+vehiculoId String @unique
+subtotal Float
+itb Float
+total Float
+pay Pay?
+
+
+}
+
+model Pay {
+
+id_pay String @id @default(uuid())
+facturaId String @unique
+userId String @unique
+status_pay PAY?
+fecha DateTime
+pagousuarioRelation Users @relation(fields: [userId], references: [id_user])
+pagofacturaRelation Factura @relation(fields: [facturaId], references: [id_factura])
+
+}
+
 enum STATUS_BOOKING {
   PENDING
   SUCCESS
+  DECLINE
 }
 
 enum ROLE {
   ADMIN
   USER
+}
+
+enum PAY {
+PENDING
+SUCCESS
+PAY_PAYMENT
+DECLINE
 }
 
