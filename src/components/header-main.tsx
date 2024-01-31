@@ -1,10 +1,15 @@
+"use client";
+
 import Link from "next/link";
+import {useRouter} from "next/navigation";
 
 import {Button} from "@/components/ui/button";
 import {Separator} from "@/components/ui/separator";
 import {cn} from "@/lib/utils";
 
 export function HeaderMain() {
+  const router = useRouter();
+
   return (
     <header className="mt-5 flex items-center justify-between">
       <Link className="" href="/">
@@ -23,7 +28,7 @@ export function HeaderMain() {
           <Separator className="h-5 bg-gray-400/80" orientation="vertical" />
           <li>
             <Button asChild className={cn("text-base font-medium text-gray-200/90")} variant="link">
-              <Link href="/bookings">Flota de Vehiculos</Link>
+              <Link href="/categorias">Flota de Vehículos</Link>
             </Button>
           </li>
           <Separator className="h-5 bg-gray-400/80" orientation="vertical" />
@@ -41,11 +46,21 @@ export function HeaderMain() {
         </ul>
       </nav>
       <div className="flex items-center justify-between gap-x-3">
-        <Button className="text-lg" variant="outline">
+        <Button
+          className="text-lg"
+          type="button"
+          variant="outline"
+          onClick={() => router.push("/signin")}
+        >
           Ingresar
         </Button>
         <Separator className="h-8 bg-gray-400/80" orientation="vertical" />
-        <Button className="text-lg" variant="secondary">
+        <Button
+          className="text-lg"
+          type="button"
+          variant="secondary"
+          onClick={() => router.push("/signup")}
+        >
           Registrarse
         </Button>
       </div>

@@ -4,5 +4,24 @@
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
-  }
+  },
+  "cSpell.words": [
+    "card",
+    "Card",
+    "crossover",
+    "deluxe",
+    "Deluxe",
+    "Edwin",
+    "icons",
+    "jeepetas",
+    "Jeepetas",
+    "lucide",
+    "Rent",
+    "road",
+    "rounded",
+    "sedans",
+    "signin",
+    "signup",
+    "slate"
+  ]
 }
