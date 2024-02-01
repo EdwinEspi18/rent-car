@@ -10,89 +10,81 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Users {
-    id_user String @id @default(uuid())
-    nombre_completo String
-    num_cedula String
-    telefono String
-    role ROLE? @default(USER)
+  id_user         String     @id @default(uuid())
+  nombre_completo String
+  num_cedula      String
+  telefono        String
+  role            ROLE?      @default(USER)
+  bookings        Bookings[]
+  updatedAt       DateTime   @updatedAt
 
-    bookings Bookings[]
-    factura Factura?
-    pay Pay?
-
-    @@unique(name: "telefonoNumCedula", fields: [num_cedula, telefono])
-    @@map("users")
+  @@unique(name: "telefonoNumCedula", fields: [num_cedula, telefono])
+  @@index([id_user, num_cedula, telefono])
+  @@map("users")
 }
 
 model Bookings {
-  id_booking String @id @default(uuid())
-  status STATUS_BOOKING? @default(PENDING)
-  fecha DateTime
-  vehiculosRelation Vehiculo @relation(fields: [vehiculoId], references: [id_car])
-  UserRelation Users @relation(fields: [userId], references: [id_user])
+  id_booking String          @id @default(uuid())
+  fecha      DateTime
   vehiculoId String
-  userId String
+  userId     String
+  subtotal   Float
+  itbis      Float
+  total      Float
+  status     STATUS_BOOKING? @default(PENDING)
+  factura    Factura[]
+  updatedAt  DateTime        @updatedAt
+
+  vehiculosRelation Vehiculo @relation(fields: [vehiculoId], references: [id_car])
+  UserRelation      Users    @relation(fields: [userId], references: [id_user])
+
+  @@index([id_booking, status])
+  @@map("bookings")
 }
 
 model Vehiculo {
-  id_car String @id @default(uuid())
-  marcasRelation Marca_Vehiculo @relation(fields: [marcaId], references: [id_marca])
-  marcaId String
-  AGE Int
+  id_car   String     @id @default(uuid())
+  marcaId  String
+  age      Int
   bookings Bookings[]
-  factura Factura?
+
+  marcasRelation Marca_Vehiculo @relation(fields: [marcaId], references: [id_marca])
+
+  @@index([id_car, age])
+  @@map("vehiculos")
 }
 
 model Marca_Vehiculo {
-  id_marca String @id @default(uuid())
-  marca String
+  id_marca  String     @id @default(uuid())
+  marca     String
   vehiculos Vehiculo[]
+
+  @@index([marca])
+  @@map("marca_vehiculo")
 }
 
 model Factura {
-id_factura String @id @default(uuid())
-usuarioRelation Users @relation(fields: [userId], references: [id_user])
-vehiculoRelation Vehiculo @relation(fields: [vehiculoId], references: [id_car])
-userId String @unique
-fecha DateTime
-vehiculoId String @unique
-subtotal Float
-itb Float
-total Float
-pay Pay?
+  id_factura String   @id @default(uuid())
+  userId     String   @unique
+  fecha      DateTime
+  vehiculoId String
+  bookingId  String
 
+  bookingsRelation Bookings @relation(fields: [bookingId], references: [id_booking])
 
-}
-
-model Pay {
-
-id_pay String @id @default(uuid())
-facturaId String @unique
-userId String @unique
-status_pay PAY?
-fecha DateTime
-pagousuarioRelation Users @relation(fields: [userId], references: [id_user])
-pagofacturaRelation Factura @relation(fields: [facturaId], references: [id_factura])
-
+  @@index([id_factura])
+  @@map("facturas")
 }
 
 enum STATUS_BOOKING {
   PENDING
   SUCCESS
   DECLINE
+  PAY_PAYMENT
 }
 
 enum ROLE {
   ADMIN
   USER
 }
-
-enum PAY {
-PENDING
-SUCCESS
-PAY_PAYMENT
-DECLINE
-}
-

@@ -1,7 +1,10 @@
 {
-  "editor.formatOnSave": false,
+  "editor.formatOnSave": true,
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
