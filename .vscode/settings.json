@@ -1,5 +1,5 @@
 {
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "[prisma]": {
@@ -11,6 +11,7 @@
   "cSpell.words": [
     "card",
     "Card",
+    "carousel",
     "crossover",
     "deluxe",
     "Deluxe",
@@ -19,6 +20,7 @@
     "jeepetas",
     "Jeepetas",
     "lucide",
+    "Palette",
     "Rent",
     "road",
     "rounded",
