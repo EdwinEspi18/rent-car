@@ -4,6 +4,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {useForm} from "react-hook-form";
 import * as z from "zod";
 import {CreditCard, KeyRound} from "lucide-react";
+import {signIn} from "next-auth/react";
 
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
@@ -32,10 +33,14 @@ export default function SignInPage() {
     reValidateMode: "onChange",
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
+    const res = await signIn("credentials", {
+      cedula: values.licencia,
+      password: values.password,
+      redirect: false,
+    });
   }
 
   return (

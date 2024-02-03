@@ -10,22 +10,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Users {
+model Usuarios {
   id_user         String     @id @default(uuid())
   nombre_completo String
-  num_cedula      String
-  telefono        String
+  num_cedula      String @unique
+  telefono        String @unique
   role            ROLE?      @default(USER)
-  bookings        Bookings[]
-  updatedAt       DateTime   @updatedAt
+  bookings        Reservas[]
+  updatedAt       DateTime?   @updatedAt
 
-  @@unique(name: "telefonoNumCedula", fields: [num_cedula, telefono])
   @@index([id_user, num_cedula, telefono])
-  @@map("users")
+  @@map("usuarios")
 }
 
-model Bookings {
-  id_booking String          @id @default(uuid())
+model Reservas {
+  id_reservas String          @id @default(uuid())
   fecha      DateTime
   vehiculoId String
   userId     String
@@ -34,24 +33,34 @@ model Bookings {
   total      Float
   status     STATUS_BOOKING? @default(PENDING)
   factura    Factura[]
-  updatedAt  DateTime        @updatedAt
+  updatedAt  DateTime?        @updatedAt
 
   vehiculosRelation Vehiculo @relation(fields: [vehiculoId], references: [id_car])
-  UserRelation      Users    @relation(fields: [userId], references: [id_user])
+  UserRelation      Usuarios    @relation(fields: [userId], references: [id_user])
 
-  @@index([id_booking, status])
-  @@map("bookings")
+  @@index([id_reservas, status])
+  @@map("reservas")
 }
 
 model Vehiculo {
   id_car   String     @id @default(uuid())
   marcaId  String
+  modelo String
   age      Int
-  bookings Bookings[]
+  n_chasis String
+  precio_alquiler Float
+  kilometraje Int
+  cant_pasajeros Int
+  placa String
+  categoria TIPO_VEHICULO
+  status STATUS_DISPONIBILIDAD? @default(DISPONIBLE)
+  traccion TRACCION? @default(DELANTERA)
+  updatedAt  DateTime?        @updatedAt
+  reservas Reservas[]
 
   marcasRelation Marca_Vehiculo @relation(fields: [marcaId], references: [id_marca])
 
-  @@index([id_car, age])
+  @@index([id_car, age, status])
   @@map("vehiculos")
 }
 
@@ -71,7 +80,7 @@ model Factura {
   vehiculoId String
   bookingId  String
 
-  bookingsRelation Bookings @relation(fields: [bookingId], references: [id_booking])
+  bookingsRelation Reservas @relation(fields: [bookingId], references: [id_reservas])
 
   @@index([id_factura])
   @@map("facturas")
@@ -87,4 +96,31 @@ enum STATUS_BOOKING {
 enum ROLE {
   ADMIN
   USER
+}
+enum STATUS_DISPONIBILIDAD {
+  DISPONIBLE
+  EN_USO
+  MANTENIMIENTO
+  FUERA_DE_SERVICIO
+  EN_REPARACION
+}
+
+enum COMBUSTIBLE {
+  GASOLINA
+  DIESEL
+  GAS_NATURAL
+  GAS_PROPANO
+}
+enum TIPO_VEHICULO {
+  SEDAN
+  JEEPETAS
+  FAMILIAR
+  OFF_ROAD
+  DELUXE
+}
+
+enum TRACCION {
+  DELANTERA
+  TRASERA
+  TOTAL
 }

@@ -1,5 +1,6 @@
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
 import {ScrollArea} from "@/components/ui/scroll-area";
+import {CardCar} from "@/components/card-car";
 
 function CategoriesPage() {
   return (
@@ -24,7 +25,12 @@ function CategoriesPage() {
         </TabsList>
         <TabsContent value="sedans">
           <ScrollArea className="h-[29.5rem] w-full">
-            <div className="grid grid-cols-3 gap-5 " />
+            <div className="grid grid-cols-3 gap-5 ">
+              <CardCar />
+              <CardCar />
+              <CardCar />
+              <CardCar />
+            </div>
           </ScrollArea>
         </TabsContent>
         <TabsContent value="jeepetas">

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {Button} from "@/components/ui/button";
 
@@ -15,15 +17,16 @@ export function CardCar() {
         }}
       />
       <CardHeader>
-        <CardTitle className="mt-4">Honda CRV 2020</CardTitle>
+        <CardTitle className="text-gray-300">Honda CRV 2020</CardTitle>
+        <strong className="tracking-wide">USD$83.00 / Día</strong>
         <CardDescription className="mt-2 text-gray-500">
           La crossover de mejor venta en la última década ahora está disponible con un avanzado tren
           motriz híbrido, que ofrece tracción integral y un andar electrizante.
         </CardDescription>
       </CardHeader>
       <CardContent className="mt-2">
-        <Button className="w-full" variant="outline">
-          Leer mas
+        <Button asChild className="w-full" variant="outline">
+          <Link href="/car/honda-crv-2023">Leer mas</Link>
         </Button>
       </CardContent>
     </Card>

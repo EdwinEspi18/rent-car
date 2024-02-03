@@ -1,12 +1,14 @@
 import type {Metadata} from "next";
 
-import "./globals.css";
 import {Poppins as FontSans} from "next/font/google";
 
 import {HeaderMain} from "@/components/header-main";
 import PatternBg from "@/components/ui/patter-bg";
 import {Toaster} from "@/components/ui/sonner";
 import {cn} from "@/lib/utils";
+
+import "./globals.css";
+import {Providers} from "./provider";
 
 export const metadata: Metadata = {
   title: {
@@ -26,21 +28,23 @@ const fontSans = FontSans({
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
-    <html lang="en">
-      <body
-        className={cn(
-          "dark container relative m-auto grid min-h-screen grid-rows-[auto,1fr,auto] overflow-x-hidden bg-background font-sans antialiased",
-          fontSans.variable,
-        )}
-      >
-        <PatternBg />
-        <HeaderMain />
-        <main className="py-8">{children}</main>
-        <footer className="text-center leading-[4rem] opacity-70">
-          © {new Date().getFullYear()} Edwin Rent-Car
-        </footer>
-        <Toaster />
-      </body>
-    </html>
+    <Providers>
+      <html lang="en">
+        <body
+          className={cn(
+            "dark container relative m-auto grid min-h-screen grid-rows-[auto,1fr,auto] overflow-x-hidden bg-background font-sans antialiased",
+            fontSans.variable,
+          )}
+        >
+          <PatternBg />
+          <HeaderMain />
+          <main className="py-8">{children}</main>
+          <footer className="text-center leading-[4rem] opacity-70">
+            © {new Date().getFullYear()} Edwin Rent-Car
+          </footer>
+          <Toaster />
+        </body>
+      </html>
+    </Providers>
   );
 }
