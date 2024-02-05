@@ -13,7 +13,7 @@ import {Providers} from "./provider";
 export const metadata: Metadata = {
   title: {
     template: "Rent Car | %s",
-    default: "Rent Car - Bookings",
+    default: "Rent Car - Reservas",
   },
   description:
     "Descubre la libertad de viajar a tu manera con Edwin Rent-Car. Ofrecemos una amplia gama de vehículos de calidad para satisfacer todas tus necesidades de transporte. Tarifas transparentes, reservas sencillas y servicio al cliente excepcional. ¡Haz tu reserva hoy y vive la experiencia de explorar con confianza y estilo!",

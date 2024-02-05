@@ -13,7 +13,7 @@ import {Separator} from "@/components/ui/separator";
 export default function CarSlugPage({params}: {params: string}) {
   return (
     <section className="flex h-full w-full flex-col items-center justify-center gap-y-10 rounded-md border border-gray-500/30 bg-card px-2 py-5">
-      <h1 className="text-center font-sans text-5xl font-bold">HONDA CRV</h1>
+      <h1 className="text-center font-sans text-5xl font-bold">HONDA CRV {params}</h1>
 
       <div className="grid w-11/12 grid-cols-2">
         <div>

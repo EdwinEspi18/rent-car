@@ -21,25 +21,41 @@ export function HeaderMain() {
       <nav className="flex-1 items-center">
         <ul className="flex h-auto items-center justify-center gap-x-1">
           <li>
-            <Button asChild className={cn("text-base font-medium text-gray-200/90")} variant="link">
+            <Button
+              asChild
+              className={cn("text-base font-medium text-gray-200/90")}
+              variant="linkHover"
+            >
               <Link href="/">Inicio</Link>
             </Button>
           </li>
           <Separator className="h-5 bg-gray-400/80" orientation="vertical" />
           <li>
-            <Button asChild className={cn("text-base font-medium text-gray-200/90")} variant="link">
+            <Button
+              asChild
+              className={cn("text-base font-medium text-gray-200/90")}
+              variant="linkHover"
+            >
               <Link href="/flotilla">Flota de Vehículos</Link>
             </Button>
           </li>
           <Separator className="h-5 bg-gray-400/80" orientation="vertical" />
           <li>
-            <Button asChild className={cn("text-base font-medium text-gray-200/90")} variant="link">
+            <Button
+              asChild
+              className={cn("text-base font-medium text-gray-200/90")}
+              variant="linkHover"
+            >
               <Link href="/contacts">Reservas</Link>
             </Button>
           </li>
           <Separator className="h-5 bg-gray-400/80" orientation="vertical" />
           <li>
-            <Button asChild className={cn("text-base font-medium text-gray-200/90")} variant="link">
+            <Button
+              asChild
+              className={cn("text-base font-medium text-gray-200/90")}
+              variant="linkHover"
+            >
               <Link href="/contacts">Contactos</Link>
             </Button>
           </li>

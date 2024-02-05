@@ -26,7 +26,7 @@ export function CardCar() {
       </CardHeader>
       <CardContent className="mt-2">
         <Button asChild className="w-full" variant="outline">
-          <Link href="/car/honda-crv-2023">Leer mas</Link>
+          <Link href="/vehiculo/honda-crv-2023">Leer mas</Link>
         </Button>
       </CardContent>
     </Card>
