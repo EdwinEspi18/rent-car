@@ -12,14 +12,14 @@ import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 
 const formSchema = z.object({
-  nombre: z
+  nombre_completo: z
     .string({
       invalid_type_error: "Nombre completo no debe contener dígitos",
+      required_error: "Nombre completo es requerido",
     })
     .min(2)
-    .max(50)
-    .optional(),
-  licencia: z
+    .max(50),
+  num_cedula: z
     .string({
       required_error: "Licencia de conducir es requerida",
       invalid_type_error: "no debe contener espacios",
@@ -47,15 +47,34 @@ export default function SignUpPage() {
     reValidateMode: "onChange",
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-    toast(
-      <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-        <code className="text-white">{JSON.stringify(values, null, 2)}</code>
-      </pre>,
-    );
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const response = await fetch("/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    });
+
+    if (response.ok) {
+      form.resetField("nombre_completo", {
+        defaultValue: "",
+      });
+      form.resetField("num_cedula", {
+        defaultValue: "",
+      });
+      form.resetField("password", {
+        defaultValue: "",
+      });
+      form.resetField("telefono", {
+        defaultValue: "",
+      });
+
+      return toast.success("Se registro correctamente!!");
+    }
+    if (response.status === 400) {
+      toast.error("No. de Cedula o No. de Teléfono ya están registrados");
+    }
   }
 
   return (
@@ -69,7 +88,7 @@ export default function SignUpPage() {
           <form className="space-y-5" onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
-              name="licencia"
+              name="num_cedula"
               render={({field}) => (
                 <FormItem>
                   <FormLabel htmlFor="licencia">Numero de licencia</FormLabel>
@@ -91,7 +110,7 @@ export default function SignUpPage() {
             />
             <FormField
               control={form.control}
-              name="nombre"
+              name="nombre_completo"
               render={({field}) => (
                 <FormItem>
                   <FormLabel htmlFor="nombre">Nombre completo</FormLabel>

@@ -15,6 +15,7 @@ model Usuarios {
   nombre_completo String
   num_cedula      String @unique
   telefono        String @unique
+  password        String?
   role            ROLE?      @default(USER)
   bookings        Reservas[]
   updatedAt       DateTime?   @updatedAt
@@ -52,6 +53,8 @@ model Vehiculo {
   kilometraje Int
   cant_pasajeros Int
   placa String
+  fuel COMBUSTIBLE
+  color String
   categoria TIPO_VEHICULO
   status STATUS_DISPONIBILIDAD? @default(DISPONIBLE)
   traccion TRACCION? @default(DELANTERA)
@@ -108,8 +111,7 @@ enum STATUS_DISPONIBILIDAD {
 enum COMBUSTIBLE {
   GASOLINA
   DIESEL
-  GAS_NATURAL
-  GAS_PROPANO
+  GAS
 }
 enum TIPO_VEHICULO {
   SEDAN

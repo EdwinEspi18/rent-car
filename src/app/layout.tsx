@@ -32,7 +32,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
       <html lang="en">
         <body
           className={cn(
-            "dark container relative m-auto grid min-h-screen grid-rows-[auto,1fr,auto] overflow-x-hidden bg-background font-sans antialiased",
+            "dark relative m-auto grid min-h-screen grid-rows-[auto,1fr,auto] overflow-x-hidden bg-background px-28 font-sans antialiased",
             fontSans.variable,
           )}
         >
@@ -42,7 +42,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
           <footer className="text-center leading-[4rem] opacity-70">
             © {new Date().getFullYear()} Edwin Rent-Car
           </footer>
-          <Toaster />
+          <Toaster richColors />
         </body>
       </html>
     </Providers>

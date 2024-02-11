@@ -5,6 +5,8 @@ import {useForm} from "react-hook-form";
 import * as z from "zod";
 import {CreditCard, KeyRound} from "lucide-react";
 import {signIn} from "next-auth/react";
+import {toast} from "sonner";
+import {useRouter} from "next/navigation";
 
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
@@ -28,19 +30,23 @@ const formSchema = z.object({
 });
 
 export default function SignInPage() {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     reValidateMode: "onChange",
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     const res = await signIn("credentials", {
       cedula: values.licencia,
       password: values.password,
       redirect: false,
     });
+
+    if (!res?.ok) {
+      return toast.error(res?.error);
+    }
+    router.push("/");
   }
 
   return (
@@ -83,7 +89,13 @@ export default function SignInPage() {
                   <FormControl>
                     <div className="relative">
                       <KeyRound className="absolute left-2.5 top-1 h-8" strokeWidth={2} />
-                      <Input className="pl-11" id="password" placeholder="******" {...field} />
+                      <Input
+                        className="pl-11"
+                        id="password"
+                        placeholder="******"
+                        type="password"
+                        {...field}
+                      />
                     </div>
                   </FormControl>
                   <FormMessage />

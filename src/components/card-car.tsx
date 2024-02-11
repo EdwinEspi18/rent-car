@@ -3,7 +3,18 @@ import Link from "next/link";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {Button} from "@/components/ui/button";
 
-export function CardCar() {
+import {Badge} from "./ui/badge";
+
+interface CarCard {
+  id_car: string;
+  modelo: string;
+  age: number;
+  precio_alquiler: number;
+  status: string | null;
+  marcasRelation: {marca: string};
+}
+
+export function CardCar(props: CarCard) {
   return (
     <Card className="rounded-lg p-4 shadow-md">
       <img
@@ -17,16 +28,17 @@ export function CardCar() {
         }}
       />
       <CardHeader>
-        <CardTitle className="text-gray-300">Honda CRV 2020</CardTitle>
-        <strong className="tracking-wide">USD$83.00 / Día</strong>
-        <CardDescription className="mt-2 text-gray-500">
-          La crossover de mejor venta en la última década ahora está disponible con un avanzado tren
-          motriz híbrido, que ofrece tracción integral y un andar electrizante.
+        <CardTitle className="uppercase text-gray-300">
+          {props.marcasRelation.marca} {props.modelo} {props.age}
+        </CardTitle>
+        <strong className="tracking-wide">USD${props.precio_alquiler} / Día</strong>
+        <CardDescription className="mt-3 text-gray-500">
+          <Badge className="font-medium text-white">{props.status}</Badge>
         </CardDescription>
       </CardHeader>
-      <CardContent className="mt-2">
+      <CardContent className="mt-1">
         <Button asChild className="w-full" variant="outline">
-          <Link href="/vehiculo/honda-crv-2023">Leer mas</Link>
+          <Link href={`/vehiculo/${props.id_car}`}>Saber mas</Link>
         </Button>
       </CardContent>
     </Card>
